@@ -20,8 +20,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         LIMIT 1
     ");
 
-    $stmt->bind_param("s", $correo);
-    $stmt->execute();
+   
+if ($stmt === false) {
+    error_log("Error SQL en login.php: " . $conn->error);
+    die("Error al consultar la tabla de usuarios. Verifica la estructura de la base de datos.");
+}
+
+$stmt->bind_param("s", $correo);
+
+if (!$stmt->execute()) {
+    error_log("Error al ejecutar consulta de login: " . $stmt->error);
+    $stmt->close();
+    die("No fue posible consultar el usuario.");
+}
+
 
     $result = $stmt->get_result();
     $user = $result->fetch_assoc();
