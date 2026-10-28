@@ -1,0 +1,211 @@
+# GUÃA PARA EJECUTAR EL PROYECTO
+
+## Sistema web inteligente para gestiÃ³n de inventarios y pronÃ³stico de stock
+
+### 1. Verificar que MySQL estÃ© funcionando
+
+Abrir PowerShell como **Administrador** y ejecutar:
+
+```powershell
+Get-Service MySQL80
+```
+
+Debe aparecer:
+
+```text
+Status   Name
+Running  MySQL80
+```
+
+Si aparece `Stopped`, ejecutar:
+
+```powershell
+Start-Service MySQL80
+```
+
+Y volver a comprobar:
+
+```powershell
+Get-Service MySQL80
+```
+
+---
+
+### 2. Comprobar que MySQL responde
+
+Ejecutar:
+
+```powershell
+& "C:\Program Files\MySQL\MySQL Server 8.0\bin\mysql.exe" -h 127.0.0.1 -P 3306 -u root -p -e "SELECT VERSION(), CURRENT_USER();"
+```
+
+Cuando solicite la contraseÃ±a, escribir la contraseÃ±a de MySQL.
+
+Debe aparecer algo parecido a:
+
+```text
+VERSION()    CURRENT_USER()
+8.0.42       root@localhost
+```
+
+---
+
+### 3. Ir a la carpeta del proyecto
+
+Abrir otra ventana de PowerShell y ejecutar:
+
+```powershell
+cd "C:\Users\Melanie Sayes\Documents\SEMINARIO"
+```
+
+---
+
+### 4. Iniciar el servidor PHP
+
+Ejecutar:
+
+```powershell
+php -S localhost:8000
+```
+
+Debe aparecer:
+
+```text
+PHP 8.5.10 Development Server
+(http://localhost:8000) started
+```
+
+IMPORTANTE:
+
+NO cerrar esta ventana mientras se estÃ© utilizando el sistema.
+
+---
+
+### 5. Abrir el sistema
+
+Abrir Google Chrome y entrar a:
+
+```text
+http://localhost:8000
+```
+
+---
+
+### 6. Iniciar sesiÃ³n
+
+Usuario:
+
+```text
+[Configurar un usuario administrador propio]
+```
+
+ContraseÃ±a:
+
+```text
+[Configurar una contraseña segura]
+```
+
+---
+
+### 7. Orden recomendado para la demostraciÃ³n
+
+1. Iniciar sesiÃ³n.
+2. Mostrar Dashboard.
+3. Entrar a Productos.
+4. Mostrar productos y existencias.
+5. Entrar a Inventario.
+6. Mostrar movimientos.
+7. Mostrar PronÃ³stico.
+8. Mostrar Reportes.
+9. Mostrar las funciones principales del sistema.
+10. Cerrar sesiÃ³n.
+
+---
+
+### 8. Si el navegador muestra ERR_CONNECTION_REFUSED
+
+Significa que el servidor PHP no estÃ¡ ejecutÃ¡ndose.
+
+Volver a PowerShell y ejecutar:
+
+```powershell
+cd "C:\Users\Melanie Sayes\Documents\SEMINARIO"
+```
+
+Luego:
+
+```powershell
+php -S localhost:8000
+```
+
+DespuÃ©s volver a abrir:
+
+```text
+http://localhost:8000
+```
+
+---
+
+### 9. Si se quiere comprobar que PHP estÃ¡ escuchando
+
+Ejecutar en otra ventana de PowerShell:
+
+```powershell
+Get-NetTCPConnection -LocalPort 8000 -State Listen
+```
+
+Debe aparecer una conexiÃ³n utilizando el puerto:
+
+```text
+8000
+```
+
+---
+
+### 10. Si se quiere comprobar que MySQL estÃ¡ escuchando
+
+Ejecutar:
+
+```powershell
+Get-NetTCPConnection -LocalPort 3306 -State Listen
+```
+
+Debe aparecer una conexiÃ³n utilizando el puerto:
+
+```text
+3306
+```
+
+---
+
+## IMPORTANTE PARA LA PRESENTACIÃ“N
+
+Mantener abiertas:
+
+### Ventana 1
+
+PowerShell con MySQL funcionando.
+
+### Ventana 2
+
+PowerShell con:
+
+```powershell
+php -S localhost:8000
+```
+
+### Ventana 3
+
+Google Chrome con:
+
+```text
+http://localhost:8000
+```
+
+No cerrar la ventana donde estÃ¡ ejecutÃ¡ndose:
+
+```text
+php -S localhost:8000
+```
+
+porque al cerrarla se detiene el servidor web.

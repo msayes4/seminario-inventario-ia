@@ -1,0 +1,18 @@
+﻿.venv/
+venv/
+__pycache__/
+*.py[cod]
+.git/
+.env
+.env.*
+!.env.example
+*.sql
+*.sql.gz
+*.dump
+*.log
+*.tmp
+SEMINARIO_RESPALDO/
+vendor/
+
+# Permitir el script publico de instalacion
+!database/inventario_publico.sql
