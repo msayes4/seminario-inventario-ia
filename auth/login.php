@@ -12,33 +12,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $correo = trim($_POST['correo'] ?? '');
     $password = $_POST['password'] ?? '';
 
-    $stmt = $conn->prepare("
-        SELECT id, nombre, correo, password, rol
-        FROM usuarios
-        WHERE correo = ?
-        AND estado = 1
-        LIMIT 1
-    ");
+    
+$sql = "
+    SELECT id, nombre, correo, password, rol
+    FROM usuarios
+    WHERE correo = ?
+    AND estado = 1
+    LIMIT 1
+";
 
-   
+$stmt = $conn->prepare($sql);
+
 if ($stmt === false) {
-    error_log("Error SQL en login.php: " . $conn->error);
-    die("Error al consultar la tabla de usuarios. Verifica la estructura de la base de datos.");
+    error_log("ERROR LOGIN SQL: " . $conn->error);
+    http_response_code(500);
+    exit("No se pudo preparar la consulta. Revisa los registros de la aplicación.");
 }
 
 $stmt->bind_param("s", $correo);
 
 if (!$stmt->execute()) {
-    error_log("Error al ejecutar consulta de login: " . $stmt->error);
+    error_log("ERROR LOGIN EJECUCION: " . $stmt->error);
     $stmt->close();
-    die("No fue posible consultar el usuario.");
+    http_response_code(500);
+    exit("No se pudo ejecutar la consulta.");
 }
 
+$result = $stmt->get_result();
+$user = $result->fetch_assoc();
 
-    $result = $stmt->get_result();
-    $user = $result->fetch_assoc();
+$stmt->close();
 
-    $stmt->close();
 
     $passwordCorrecta = false;
     $esHashAntiguo = false;
