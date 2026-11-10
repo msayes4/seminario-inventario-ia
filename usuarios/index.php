@@ -1,5 +1,5 @@
 <?php
-
+header('Content-Type: text/html; charset=UTF-8');
 require_once __DIR__ . '/../config/auth.php';
 require_once __DIR__ . '/../config/database.php';
 
@@ -27,7 +27,7 @@ if (!$resultado) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>AdministraciÃ³n de usuarios</title>
+    <title>Administración de usuarios</title>
 
     <link
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
@@ -44,7 +44,7 @@ if (!$resultado) {
 
 <div class="d-flex justify-content-between align-items-center mb-4">
     <div>
-        <h2>AdministraciÃ³n de usuarios</h2>
+        <h2>Administración de usuarios</h2>
         <p class="text-muted mb-0">
             Consulta los usuarios registrados y sus permisos.
         </p>
@@ -67,7 +67,7 @@ if (!$resultado) {
                         <tr>
                             <th>ID</th>
                             <th>Nombre</th>
-                            <th>Correo electrÃ³nico</th>
+                            <th>Correo electrónico</th>
                             <th>Rol</th>
                             <th>Estado</th>
                             <th>Fecha de registro</th>
